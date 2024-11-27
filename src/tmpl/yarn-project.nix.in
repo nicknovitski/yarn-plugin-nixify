@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 { lib, stdenv, nodejs, git, cacert, fetchurl, writeShellScript, writeShellScriptBin }:
-{ src, overrideAttrs ? null, ... } @ args:
+{ src, overrideAttrs ? null, buildVars ? "", ... } @ args:
 
 let
 
@@ -38,7 +38,7 @@ let
     export npm_config_build_from_source=true
     # Disable Nixify plugin to save on some unnecessary processing.
     export yarn_enable_nixify=false
-  '';
+  '' + buildVars;
 
 #@@ IF COMBINED_DRV
   cacheDrv = stdenv.mkDerivation {
